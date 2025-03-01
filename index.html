@@ -6,32 +6,65 @@
     <title>Lo-Fi Music Prompt Generator</title>
     <link rel="icon" type="image/png" href="favicon.ico">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <h1>Lo-Fi Music Prompt Generator</h1>
-    
-    <label for="theme">Choose a theme:</label>
-    <select id="theme" onchange="clearPrompt()">
-        <option value="dark_fantasy">Lo-Fi Dark Fantasy</option>
-        <option value="medieval">Lo-Fi Medieval</option>
-        <option value="japanese">Lo-Fi Japanese</option>
-    </select>
+    <div id="particles-js"></div>
+    <div class="container">
+        <h1>Lo-Fi Music Prompt Generator</h1>
+        
+        <div class="theme-selector">
+            <label for="theme">Choose a theme:</label>
+            <select id="theme" onchange="clearPrompt(); updateThemeStyle();">
+                <option value="dark_fantasy">Dark Fantasy</option>
+                <option value="medieval">Medieval</option>
+                <option value="japanese">Lo-Fi Japanese</option>
+            </select>
+        </div>
 
-    <div class="button-container">
-        <button aria-label="Generate Prompt" onclick="generatePrompt()">Generate Prompt</button>
-        <button aria-label="Copy Prompt" onclick="copyPrompt()">Copy Prompt</button>
-        <button aria-label="Clear Prompt" onclick="clearPrompt()">Clear Prompt</button>
+        <div class="bpm-selector">
+            <label for="bpm">Choose BPM:</label>
+            <input type="number" id="bpm" min="40" max="200" value="60">
+            <input type="range" id="bpm-slider" min="40" max="200" value="60">
+            <span id="bpm-value">60</span> BPM
+        </div>
+
+        <div class="button-container">
+            <button aria-label="Generate Prompt" onclick="generatePrompt()">Generate Prompt</button>
+            <button aria-label="Copy Prompt" onclick="copyPrompt()">Copy Prompt</button>
+            <button aria-label="Clear Prompt" onclick="clearPrompt()">Clear Prompt</button>
+        </div>
+
+        <div id="prompt-box">Your prompt will appear here...</div>
     </div>
 
-    <div id="prompt-box">Your prompt will appear here...</div>
+    <!-- Ícone de Chat -->
+    <div class="chat-icon" onclick="toggleChatPopup()">
+        <i class="fas fa-comment"></i>
+    </div>
 
-    <div id="notification">Prompt copied!</div>
+    <!-- Pop-up de Chat com Formulário -->
+    <div class="chat-popup" id="chatPopup">
+        <h3>Send us a message</h3>
+        <form action="https://formspree.io/f/xpwqvppr" method="POST">
+            <label>
+                Your email:
+                <input type="email" name="email" required placeholder="Enter your email">
+            </label>
+            <label>
+                Your message:
+                <textarea name="message" rows="4" required placeholder="Type your message"></textarea>
+            </label>
+            <button type="submit" class="submit-btn">Send</button>
+        </form>
+    </div>
 
-    <script src="script.js"></script>
     <!-- Notificação -->
-    <div id="notification" style="display: none; position: fixed; bottom: 20px; right: 20px; background-color: #28a745; color: white; padding: 10px; border-radius: 5px; opacity: 0; transition: opacity 0.5s ease;">
-    Prompt copied successfully!
-</div>
+    <div id="notification" class="notification">
+        Prompt copied successfully!
+    </div>
 
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
